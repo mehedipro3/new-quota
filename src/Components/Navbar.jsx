@@ -12,6 +12,8 @@ const Navbar = () => {
   const links = (
     <>
       <li><NavLink to="/">Home</NavLink></li>
+      <li><NavLink to="/aboutUs">About us</NavLink></li>
+      <li><NavLink to="/contactUs">Contact us</NavLink></li>
       {isAdmin && <li><NavLink to="/admin">Admin</NavLink></li>}
       {isAdmin ? "" : user?.email && <li><NavLink to="/myProfile">My Profile</NavLink></li>}
     </>

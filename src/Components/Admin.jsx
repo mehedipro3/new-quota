@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
@@ -16,16 +15,11 @@ import { Link } from "react-router-dom";
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [editUser, setEditUser] = useState(null);
-  const [formData, setFormData] = useState({ name: "", contact: "", bloodGroup: "", occupation: "", life: "" });
-  const [showNewUserModal, setShowNewUserModal] = useState(false);
-
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  // fetchUsers function will fetch the users from the db.it will send a request to the port 5000 and get the data
 
   const fetchUsers = async () => {
     try {
@@ -41,12 +35,8 @@ const Admin = () => {
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // const handleEditClick = (user) => {
-  //   setEditUser(user);
-  //   setFormData(user);
-  // };
 
-  // handleDelete function will delete the user from the db
+  // delete the user from the db
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -74,122 +64,8 @@ const Admin = () => {
     });
   };
 
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (editUser) {
-        // Update existing user with a PUT requests
-        const response = await axios.put(`http://localhost:5000/datas/${editUser._id}`, formData);
-        setUsers(users.map((user) => (user._id === editUser._id ? response.data : user)));
-        setEditUser(null);
-      } else {
-        // Create new user. it will fetch the db and update it with a new user and id
-        // the new user will be added to the users array
-        const response = await axios.post('http://localhost:5000/datas', formData);
-        setUsers([...users, response.data]);
-        setShowNewUserModal(false);
-      }
-      setFormData({ name: "", contact: "", bloodGroup: "", occupation: "" });
-    } catch (error) {
-      console.error("Error saving user:", error);
-    }
-  };
-
-  const UserForm = ({ onSubmit, onCancel, initialData, title }) => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded shadow-lg w-96">
-        <h2 className="text-xl font-bold mb-4">{title}</h2>
-        <form onSubmit={onSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={initialData.name}
-              onChange={(e) => handleFormChange(e)}
-              className="w-full px-4 py-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Contact</label>
-            <input
-              type="text"
-              name="contact"
-              value={initialData.contact}
-              onChange={(e) => handleFormChange(e)}
-              className="w-full px-4 py-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Blood Group</label>
-            <input
-              type="text"
-              name="bloodGroup"
-              value={initialData.bloodGroup}
-              onChange={(e) => handleFormChange(e)}
-              className="w-full px-4 py-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Occupation</label>
-            <input
-              type="text"
-              name="occupation"
-              value={initialData.occupation}
-              onChange={(e) => handleFormChange(e)}
-              className="w-full px-4 py-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="flex justify-end gap-2">
-            <button
-              type="button"
-              onClick={onCancel}
-              className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-
-  //define prop types. for the handlers
-
-  UserForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    initialData: PropTypes.shape({
-      name: PropTypes.string,
-      contact: PropTypes.string,
-      bloodGroup: PropTypes.string,
-      occupation: PropTypes.string,
-    }).isRequired,
-    title: PropTypes.string.isRequired,
-  };
-
-  const { user, logOut } = useContext(AuthContext);
-
-
-
+  const { user } = useContext(AuthContext);
   const isAdmin = user?.isAdmin === true;
-
-
 
   if (isAdmin === true) {
     return (
@@ -205,12 +81,12 @@ const Admin = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Link to={'/addData'}>
-            <button
-              
-              className="px-4 py-2 bg-purple-600 text-white rounded-md shadow-md hover:bg-purple-700"
-            >
-              New User
-            </button>
+              <button
+
+                className="px-4 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700"
+              >
+                Add New Data
+              </button>
             </Link>
           </div>
           <div className="overflow-x-auto bg-white shadow-md rounded-lg">
@@ -227,20 +103,20 @@ const Admin = () => {
               </thead>
               <tbody>
                 {filteredUsers.length > 0 ? (
-                  filteredUsers.map((user,inx) => (
+                  filteredUsers.map((user, inx) => (
                     <tr key={user._id} className="hover:bg-gray-50">
-                      <td className="px-4 py-2 border-b">{inx+1}</td>
+                      <td className="px-4 py-2 border-b">{inx + 1}</td>
                       <td className="px-4 py-2 border-b">{user.name}</td>
-                      <td className="px-4 py-2 border-b">+{user.contact_details}</td>
+                      <td className="px-4 py-2 border-b">{user.contact_details}</td>
                       <td className="px-4 py-2 border-b">{user.blood_group}</td>
                       <td className="px-4 py-2 border-b">{user.occupation}</td>
                       <td className="px-4 py-2 border-b flex gap-2">
                         <Link to={`/updateData/${user._id}`}>
-                        <button
-                          className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-700"
-                        >
-                          Edit
-                        </button>
+                          <button
+                            className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-700"
+                          >
+                            Edit
+                          </button>
                         </Link>
                         <button
                           onClick={() => handleDelete(user._id)}
@@ -261,42 +137,11 @@ const Admin = () => {
               </tbody>
             </table>
           </div>
-
-          {/* Edit Modal */}
-          {editUser && (
-            <UserForm
-              onSubmit={handleFormSubmit}
-              onCancel={() => setEditUser(null)}
-              initialData={editUser}
-              title="Edit User"
-            />
-          )}
-
-          {/* New User Modal */}
-          {showNewUserModal && (
-            <UserForm
-              onSubmit={handleFormSubmit}
-              onCancel={() => setShowNewUserModal(false)}
-              initialData={formData}
-              title="New User"
-            />
-          )}
         </div>
         <Footer />
       </div>
     );
-  } else {
-    return (
-      <>
-        <h1>401: unauthorized</h1>
-      </>
-
-
-    )
-
   }
-
-
 
 };
 

@@ -1,4 +1,3 @@
-// ContactUs.js
 import { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -16,10 +15,23 @@ const ContactUs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you for contacting us! We'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    fetch("http://localhost:5000/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alert(data.message);
+          setFormData({ name: "", email: "", message: "" });
+        } else {
+          alert("Failed to send the message.");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
   };
+  
 
   return (
     

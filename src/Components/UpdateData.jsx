@@ -5,60 +5,61 @@ import Swal from "sweetalert2";
 
 const UpdateData = () => {
   const data = useLoaderData();
-  const {_id, name, medical_history, injury_date, age, gender, contact_details, occupation, blood_group, current_status, treatment_type, fund_amount_bdt, fund_status, transaction_date, receiver_amount_bdt, transaction_methods, transaction_id, required_support, incident_spot, img } = data ;
+  const { _id, name, medical_history, injury_date, age, gender, contact_details, occupation, blood_group, current_status, treatment_type, fund_amount_bdt, fund_status, transaction_date, receiver_amount_bdt, transaction_methods, transaction_id, required_support, incident_spot, img } = data;
 
   const handleUpdateData = (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const name = form.name.value;
-      const medical_history = form.medical_history.value;
-      const injury_date = form.injury_date.value;
-      const age = form.age.value;
-      const gender = form.gender.value;
-      const contact_details = form.contact_details.value;
-      const occupation = form.occupation.value;
-      const blood_group = form.blood_group.value;
-      const current_status = form.current_status.value;
-      const treatment_type = form.treatment_type.value;
-      const fund_amount_bdt = form.fund_amount_bdt.value;
-      const fund_status = form.fund_status.value;
-      const transaction_date = form.transaction_date.value;
-      const receiver_amount_bdt = form.receiver_amount_bdt.value;
-      const transaction_methods = form.transaction_methods.value;
-      const transaction_id = form.transaction_id.value;
-      const required_support = form.required_support.value;
-      const incident_spot = form.incident_spot.value;
-      const img = form.img.value;
-      const formUpdatedData = { name, medical_history, injury_date, age, gender, contact_details, occupation, blood_group, current_status, treatment_type, fund_amount_bdt, fund_status, transaction_date, receiver_amount_bdt, transaction_methods, transaction_id, required_support, incident_spot, img }
-      console.log(formUpdatedData);
-      
-      fetch(`http://localhost:5000/datas/${_id}`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(formUpdatedData)
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const medical_history = form.medical_history.value;
+    const injury_date = form.injury_date.value;
+    const age = form.age.value;
+    const gender = form.gender.value;
+    const contact_details = form.contact_details.value;
+    const occupation = form.occupation.value;
+    const blood_group = form.blood_group.value;
+    const current_status = form.current_status.value;
+    const treatment_type = form.treatment_type.value;
+    const fund_amount_bdt = form.fund_amount_bdt.value;
+    const fund_status = form.fund_status.value;
+    const transaction_date = form.transaction_date.value;
+    const receiver_amount_bdt = form.receiver_amount_bdt.value;
+    const transaction_methods = form.transaction_methods.value;
+    const transaction_id = form.transaction_id.value;
+    const required_support = form.required_support.value;
+    const incident_spot = form.incident_spot.value;
+    const img = form.img.value;
+    const validation = form.validation.value;
+    const formUpdatedData = { name, medical_history, injury_date, age, gender, contact_details, occupation, blood_group, current_status, treatment_type, fund_amount_bdt, fund_status, transaction_date, receiver_amount_bdt, transaction_methods, transaction_id, required_support, incident_spot, img, validation}
+    console.log(formUpdatedData);
+
+    fetch(`http://localhost:5000/datas/${_id}`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(formUpdatedData)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        Swal.fire({
+          title: "successful",
+          text: "Data Updated Successfully",
+          icon: "success",
+          draggable: true
+        });
+        form.reset();
       })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-            Swal.fire({
-              title: "successful",
-              text: "Data Updated Successfully",
-              icon: "success",
-              draggable: true
-            });
-            form.reset();
-        })
-  
-    };
+
+  };
   return (
     <div>
       <Navbar></Navbar>
       <div className="p-5 container mx-auto">
         <h1 className="text-3xl font-bold mb-4 text-red-500">Update Information For : {name}</h1>
         <form onSubmit={handleUpdateData} className="space-y-4">
-        <p className="text-sm text-red-400">Name :</p>
+          <p className="text-sm text-red-400">Name :</p>
           <input
             type="text"
             name="name"
@@ -214,8 +215,18 @@ const UpdateData = () => {
             placeholder="Image URL"
             className="input input-bordered w-full"
           />
+          <p className="text-sm text-red-400">Validation :</p>
+          <select
+            name="validation"
+            className="select select-bordered w-full"
+            required
+          >
+            <option value="">Select</option>
+            <option value="verified">Verified</option>
+            <option value="notVerified">Not Verified</option>
+          </select>
           <button type="submit" className="btn bg-blue-400 text-white w-full">
-           Update Data
+            Update Data
           </button>
         </form>
       </div>

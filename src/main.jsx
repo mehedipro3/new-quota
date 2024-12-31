@@ -21,13 +21,15 @@ import UpdateProfile from './Components/UpdateProfile';
 import PrivateRouter from './Provider/PrivateProvider';
 import AddData from './Components/addData';
 import UpdateData from './Components/UpdateData';
+import AboutUs from './Components/AboutUs';
+import ErrorPage from './Components/ErrorPage';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayouts></HomeLayouts>,
-    errorElement: <h2>Error</h2>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -39,7 +41,7 @@ const router = createBrowserRouter([
         element:
           <PrivateRouter>
             <DetailsUser></DetailsUser>
-          </PrivateRouter>
+          </PrivateRouter> 
         ,
         loader: ({ params }) => fetch(`http://localhost:5000/datas/${params.id}`)
       }
@@ -64,6 +66,10 @@ const router = createBrowserRouter([
   {
     path: "/government",
     element: <Government></Government>,
+  },
+  {
+    path: "/aboutUs",
+    element: <AboutUs></AboutUs>,
   },
   {
     path: "/submitInfo",
