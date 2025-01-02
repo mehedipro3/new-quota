@@ -10,10 +10,8 @@ import AuthLayout from './Layouts/AuthLayout';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Admin from './Components/Admin';
-import Government from './Components/Government';
 import AuthProvider from './Provider/AuthProvider';
 import HomePage from './Pages/HomePage';
-import SubmitInfo from './Components/SubmitInfo';
 import DetailsUser from './Components/DetailsUser';
 import ContactUs from './Components/ContactUs';
 import MyProfile from './Components/MyProfile';
@@ -21,7 +19,6 @@ import UpdateProfile from './Components/UpdateProfile';
 import PrivateRouter from './Provider/PrivateProvider';
 import AddData from './Components/addData';
 import UpdateData from './Components/UpdateData';
-import AboutUs from './Components/AboutUs';
 import ErrorPage from './Components/ErrorPage';
 
 
@@ -34,16 +31,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage></HomePage>,
-        loader: () => fetch("http://localhost:5000/datas"),
+        loader: () => fetch("http://localhost:5000/data"),
       },
       {
-        path: "/users/:id",
+        path: "/card/:id",
         element:
           <PrivateRouter>
             <DetailsUser></DetailsUser>
           </PrivateRouter> 
         ,
-        loader: ({ params }) => fetch(`http://localhost:5000/datas/${params.id}`)
+      loader: ({ params }) => fetch(`http://localhost:5000/data/${params.id}`)
       }
     ]
   },
@@ -51,12 +48,12 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin></Admin>,
-    loader : ()=> fetch('http://localhost:5000/datas')
+    loader : ()=> fetch('http://localhost:5000/data')
   },
   {
     path: "/updateData/:id",
     element: <UpdateData></UpdateData>,
-    loader : ({params})=> fetch(`http://localhost:5000/datas/${params.id}`)
+    loader : ({params})=> fetch(`http://localhost:5000/data/${params.id}`)
   },
   {
     path: "/addData",
@@ -64,28 +61,8 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/government",
-    element: <Government></Government>,
-  },
-  {
-    path: "/aboutUs",
-    element: <AboutUs></AboutUs>,
-  },
-  {
-    path: "/submitInfo",
-    element: 
-    <PrivateRouter>
-       <SubmitInfo></SubmitInfo>
-    </PrivateRouter>
-   ,
-  },
-  {
     path: "/contactUs",
-    element: 
-    <PrivateRouter>
-      <ContactUs></ContactUs>
-    </PrivateRouter>
-    
+    element: <ContactUs></ContactUs>
   },
   {
     path: "/myProfile",

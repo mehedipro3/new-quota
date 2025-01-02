@@ -15,7 +15,7 @@ const ErrorPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="text-center">
         <img
-          src="https://via.placeholder.com/300x200?text=404+Error"
+          src="https://img.freepik.com/free-vector/internet-network-warning-404-error-page-file-found-web-page-internet-error-page-issue-found-network-404-error-present-by-man-sleep-display_1150-55450.jpg?semt=ais_hybrid"
           alt="404 Error"
           className="mx-auto mb-6"
         />

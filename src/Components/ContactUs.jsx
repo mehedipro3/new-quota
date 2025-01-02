@@ -41,18 +41,11 @@ const ContactUs = () => {
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Info Section */}
         <div className="space-y-4 mt-36">
-          <h2 className="text-4xl font-bold">Contact Us</h2>
-          <p className="text-lg">We’d love to hear from you!</p>
-          <div className="space-y-2 text-base">
-            <p>📞 Phone: +1 234 567 890</p>
-            <p>📧 Email: contact@yourwebsite.com</p>
-            <p>🏢 Address: 123 Main Street, Your City, Your Country</p>
-          </div>
+          <img src="https://media.istockphoto.com/id/1452771551/vector/contact-us-button-with-cursor-pointer-click-vector-web-button.jpg?s=612x612&w=0&k=20&c=IGWQ-VhsNAnZyKnuWhggHhpozUiuFRq5jd-rJ7-KqIc=" alt="" />
         </div>
 
         {/* Form Section */}
-        <div className="bg-whiteshadow-xl rounded-lg p-6">
-          <h3 className="text-2xl font-semibold mb-4">Or, use the form below:</h3>
+        <div className="bg-whiteshadow-xl rounded-lg p-6 mt-10">
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name */}
             <div className="form-control">
@@ -104,7 +97,7 @@ const ContactUs = () => {
 
             {/* Submit Button */}
             <div className="form-control mt-4">
-              <button type="submit" className="btn bg-blue-400 text-white font-bold w-full">
+              <button type="submit" className="btn bg-violet-400 text-white font-bold w-full">
                 Submit
               </button>
             </div>

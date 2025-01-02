@@ -42,7 +42,7 @@ const UpdateProfile = () => {
               <input name="photo" type="text" placeholder="Photo url" className="input input-bordered" required />
             </div>
             <div className="form-control mt-6">
-              <button className="btn bg-blue-400 text-white">Update</button>
+              <button className="btn bg-violet-400 text-white">Update</button>
             </div>
           </form>
         </div>

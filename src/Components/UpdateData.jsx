@@ -5,35 +5,24 @@ import Swal from "sweetalert2";
 
 const UpdateData = () => {
   const data = useLoaderData();
-  const { _id, name, medical_history, injury_date, age, gender, contact_details, occupation, blood_group, current_status, treatment_type, fund_amount_bdt, fund_status, transaction_date, receiver_amount_bdt, transaction_methods, transaction_id, required_support, incident_spot, img } = data;
+  const { _id, title,author,genre,release_date,rating,price,amazon_link,book_picture} = data;
 
   const handleUpdateData = (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const medical_history = form.medical_history.value;
-    const injury_date = form.injury_date.value;
-    const age = form.age.value;
-    const gender = form.gender.value;
-    const contact_details = form.contact_details.value;
-    const occupation = form.occupation.value;
-    const blood_group = form.blood_group.value;
-    const current_status = form.current_status.value;
-    const treatment_type = form.treatment_type.value;
-    const fund_amount_bdt = form.fund_amount_bdt.value;
-    const fund_status = form.fund_status.value;
-    const transaction_date = form.transaction_date.value;
-    const receiver_amount_bdt = form.receiver_amount_bdt.value;
-    const transaction_methods = form.transaction_methods.value;
-    const transaction_id = form.transaction_id.value;
-    const required_support = form.required_support.value;
-    const incident_spot = form.incident_spot.value;
-    const img = form.img.value;
-    const validation = form.validation.value;
-    const formUpdatedData = { name, medical_history, injury_date, age, gender, contact_details, occupation, blood_group, current_status, treatment_type, fund_amount_bdt, fund_status, transaction_date, receiver_amount_bdt, transaction_methods, transaction_id, required_support, incident_spot, img, validation}
+    const title = form.title.value;
+    const author = form.author.value;
+    const genre = form.genre.value;
+    const release_date = form.release_date.value;
+    const rating = form.rating.value;
+    const price = form.price.value;
+    const amazon_link = form.amazon_link.value;
+    const book_picture= form.book_picture.value;
+    
+    const formUpdatedData = { title, author, genre, release_date, rating, price, amazon_link, book_picture}
     console.log(formUpdatedData);
 
-    fetch(`http://localhost:5000/datas/${_id}`, {
+    fetch(`http://localhost:5000/data/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json'
@@ -57,174 +46,74 @@ const UpdateData = () => {
     <div>
       <Navbar></Navbar>
       <div className="p-5 container mx-auto">
-        <h1 className="text-3xl font-bold mb-4 text-red-500">Update Information For : {name}</h1>
+        <h1 className="text-3xl font-bold mb-4 text-red-500">Update Information For : {title}</h1>
         <form onSubmit={handleUpdateData} className="space-y-4">
-          <p className="text-sm text-red-400">Name :</p>
+          <p className="text-sm text-red-400"> Book Name :</p>
           <input
             type="text"
-            name="name"
-            defaultValue={name}
-            placeholder="Name"
+            name="title"
+            defaultValue={title}
+            placeholder="Book Name"
             className="input input-bordered w-full"
             required
           />
-          <p className="text-sm text-red-400">Medical History :</p>
+          <p className="text-sm text-red-400">Author :</p>
           <textarea
-            name="medical_history"
-            defaultValue={medical_history}
-            placeholder="Medical History"
+            name="author"
+            defaultValue={author}
+            placeholder="author"
             className="textarea textarea-bordered w-full"
           ></textarea>
-          <p className="text-sm text-red-400">Injury Date :</p>
+          <p className="text-sm text-red-400">Genre :</p>
           <input
-            name="injury_date"
-            defaultValue={injury_date}
-            placeholder="injury_date"
+            name="genre"
+            defaultValue={genre}
+            placeholder="genre"
             className="input input-bordered w-full"
           />
-          <p className="text-sm text-red-400">Age :</p>
+          <p className="text-sm text-red-400">Release Date :</p>
+          <input
+            name="release_date"
+            defaultValue={release_date}
+            placeholder="release_date"
+            className="input input-bordered w-full"
+          />
+          <p className="text-sm text-red-400">Amazon Link :</p>
+          <input
+            type="text"
+            name="amazon_link"
+            defaultValue={amazon_link}
+            placeholder="amazon_link"
+            className="input input-bordered w-full"
+            required
+          />
+          <p className="text-sm text-red-400">Rating :</p>
+          
+          <input
+            type="text"
+            name="rating"
+            defaultValue={rating}
+            placeholder="rating"
+            className="input input-bordered w-full"
+            required
+          />
+          <p className="text-sm text-red-400">Price :</p>
           <input
             type="number"
-            name="age"
-            defaultValue={age}
-            placeholder="Age"
+            name="price"
+            defaultValue={price}
+            placeholder="price"
             className="input input-bordered w-full"
-            required
           />
-          <p className="text-sm text-red-400">Gender :</p>
-          <select
-            name="gender"
-            defaultValue={gender}
-            className="select select-bordered w-full"
-            required
-          >
-            defaultValue={gender}
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          <p className="text-sm text-red-400">Contact Details :</p>
+          <p className="text-sm text-red-400">Book picture :</p>
           <input
             type="text"
-            name="contact_details"
-            defaultValue={contact_details}
-            placeholder="Contact Details"
-            className="input input-bordered w-full"
-            required
-          />
-          <p className="text-sm text-red-400">Occupation :</p>
-          <input
-            type="text"
-            name="occupation"
-            defaultValue={occupation}
-            placeholder="Occupation"
+            name="book_picture"
+            defaultValue={book_picture}
+            placeholder="Book picture"
             className="input input-bordered w-full"
           />
-          <p className="text-sm text-red-400">Blood Group :</p>
-          <input
-            type="text"
-            name="blood_group"
-            defaultValue={blood_group}
-            placeholder="Blood Group"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Current Status :</p>
-          <input
-            type="text"
-            name="current_status"
-            defaultValue={current_status}
-            placeholder="Current Status"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Treatment Type :</p>
-          <input
-            type="text"
-            name="treatment_type"
-            defaultValue={treatment_type}
-            placeholder="Treatment Type"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Fund Amount (BDT) :</p>
-          <input
-            type="number"
-            name="fund_amount_bdt"
-            defaultValue={fund_amount_bdt}
-            placeholder="Fund Amount (BDT)"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Fund Status :</p>
-          <input
-            type="text"
-            name="fund_status"
-            defaultValue={fund_status}
-            placeholder="Fund Status"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Transaction Date :</p>
-          <input
-            name="transaction_date"
-            defaultValue={transaction_date}
-            placeholder="transaction_date"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Receiver Amount (BDT) :</p>
-          <input
-            type="number"
-            name="receiver_amount_bdt"
-            defaultValue={receiver_amount_bdt}
-            placeholder="Receiver Amount (BDT)"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Transaction Methods :</p>
-          <input
-            type="text"
-            name="transaction_methods"
-            defaultValue={transaction_methods}
-            placeholder="Transaction Methods"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Transaction ID :</p>
-          <input
-            type="text"
-            name="transaction_id"
-            defaultValue={transaction_id}
-            placeholder="Transaction ID"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Required Support :</p>
-          <textarea
-            name="required_support"
-            placeholder="Required Support"
-            defaultValue={required_support}
-            className="textarea textarea-bordered w-full"
-          ></textarea>
-          <p className="text-sm text-red-400">Incident Spot :</p>
-          <input
-            type="text"
-            name="incident_spot"
-            defaultValue={incident_spot}
-            placeholder="Incident Spot"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Image URL :</p>
-          <input
-            type="text"
-            name="img"
-            defaultValue={img}
-            placeholder="Image URL"
-            className="input input-bordered w-full"
-          />
-          <p className="text-sm text-red-400">Validation :</p>
-          <select
-            name="validation"
-            className="select select-bordered w-full"
-            required
-          >
-            <option value="">Select</option>
-            <option value="verified">Verified</option>
-            <option value="notVerified">Not Verified</option>
-          </select>
+          
           <button type="submit" className="btn bg-blue-400 text-white w-full">
             Update Data
           </button>

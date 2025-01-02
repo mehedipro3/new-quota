@@ -1,15 +1,17 @@
-import { Outlet } from "react-router-dom";
+
+import Display_cards from "../Components/Display_cards";
+import Hero from "../Components/Hero";
 import HeroContent from "../Components/HeroContent";
-import MovementList from "../Components/MovementList";
-import Struggle from "../Components/Struggle";
+
+
 
 const HomePage = () => {
+  
   return (
-    <div className="">
+    <div >
       <HeroContent></HeroContent>
-      <Struggle></Struggle>
-      <MovementList></MovementList>
-      <Outlet></Outlet>
+      <Hero></Hero>
+      <Display_cards></Display_cards>
     </div>
   );
 };
